@@ -4,7 +4,6 @@
 U8GLIB_SSD1306_128X32 u8g(U8G_I2C_OPT_NONE);
 
 int a;
-String valore;
 
 void setup() {
   Serial.begin(9600);
@@ -31,23 +30,21 @@ void setup() {
 
 void loop() {
   if (Serial.available()) {
-    valore = " ";
-    do {
-      a = Serial.read();
-      valore += a;
-    } while (a != '\n');
-    u8g.firstPage();
-    do {
-
-      u8g.setFont(u8g_font_gdr25r);
-      //u8g.drawStr(8, 30, "Eeee");
-
-      char buf[9];
-      sprintf (buf, "%d", a);
-      u8g.drawStr(0, 30, buf);
-
-    } while ( u8g.nextPage() );
-    delay(200);
-
+    a = Serial.read();
   }
+
+  u8g.firstPage();
+  do {
+
+    u8g.setFont(u8g_font_gdr25r);
+    //u8g.drawStr(8, 30, "Eeee");
+
+    char buf[9];
+    sprintf (buf, "%d", a);
+    u8g.drawStr(0, 30, buf);
+
+  } while ( u8g.nextPage() );
+  delay(200);
+
+
 }
